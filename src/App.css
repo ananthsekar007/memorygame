@@ -1,0 +1,38 @@
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 50px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.nav {
+  background-color: red;
+  display: flex;
+  height: 10px;
+}

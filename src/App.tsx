@@ -3,6 +3,7 @@ import update from "immutability-helper";
 import "./App.css";
 import { Card } from "./Card";
 import swal from "sweetalert";
+import { reshape, shuffle } from "./utils";
 
 type SelectedValue = {
   row: number;
@@ -10,14 +11,12 @@ type SelectedValue = {
 };
 
 function App() {
-  const [grid, setGrid] = useState([
-    [1, 2, 4, 2],
-    [4, 1, 3, 5],
-    [6, 3, 5, 6],
-  ]);
+  const [grid, setGrid] = useState(
+    reshape(shuffle([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6]), 3, 4)
+  );
 
   const [revealed, setRevealed] = useState(
-    new Array(grid.length)
+    new Array(grid?.length)
       .fill("")
       .map(() => new Array(grid[0].length).fill(false))
   );
@@ -93,9 +92,9 @@ function App() {
     <React.Fragment>
       <h1 className="header">Memory Game</h1>
       <div className="grid">
-        {grid.map((row, rowIndex) => (
+        {grid.map((row: any, rowIndex: any) => (
           <div key={rowIndex} className="row">
-            {row.map((number, colIndex) => (
+            {row.map((number: any, colIndex: any) => (
               <Card
                 colIndex={colIndex}
                 rowIndex={rowIndex}

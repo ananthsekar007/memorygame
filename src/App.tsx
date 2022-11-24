@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import update from "immutability-helper";
 import "./App.css";
+import { Card } from "./Card";
+import swal from "sweetalert";
 
 type SelectedValue = {
   row: number;
@@ -51,7 +53,31 @@ function App() {
 
         setTimeout(() => {
           if (revealed.flat().every((isRevealed) => isRevealed)) {
-            alert("You Won!");
+            swal({
+              title: "You Won!",
+              icon: "success",
+              text: "Do you want to play again?",
+              buttons: {
+                cancel: {
+                  text: "Cancel",
+                  value: "cancel",
+                },
+                play: {
+                  text: "Play Again!",
+                  value: "play",
+                },
+              },
+            }).then((value) => {
+              switch (value) {
+                case "play":
+                  window.location.reload();
+                  break;
+                case "cancel":
+                  break;
+                default:
+                  window.location.reload();
+              }
+            });
           }
         }, 500);
       }
@@ -70,13 +96,16 @@ function App() {
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map((number, colIndex) => (
-              <div
+              <Card
+                colIndex={colIndex}
+                rowIndex={rowIndex}
+                value={number}
+                isRevealed={revealed[rowIndex][colIndex]}
+                onCardClick={(rowIndex, colIndex) =>
+                  handleCardClick(rowIndex, colIndex)
+                }
                 key={colIndex}
-                onClick={() => handleCardClick(rowIndex, colIndex)}
-                className="card"
-              >
-                {revealed[rowIndex][colIndex] ? number : ""}
-              </div>
+              />
             ))}
           </div>
         ))}
